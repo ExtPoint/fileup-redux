@@ -16,7 +16,7 @@ export default (config = {}) => {
             ...config,
             id: config.id || `uploader${idCounter++}`,
             uploader: config.uploader || {},
-            initialFiles: config.initialFiles || [],
+            backendUrl: config.backendUrl || '',
         };
 
         class FileUpHOC extends React.Component {
@@ -49,8 +49,8 @@ export default (config = {}) => {
                 });
 
                 // Add uploaded files
-                if (config.initialFiles.length > 0) {
-                    const fileModels = config.initialFiles.map(item => (new File({
+                if (this.props.initialFiles.length > 0) {
+                    const fileModels = this.props.initialFiles.map(item => (new File({
                         status: File.STATUS_END,
                         result: File.RESULT_SUCCESS,
                         resultHttpStatus: 200,
