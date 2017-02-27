@@ -30,6 +30,10 @@ export default (config = {}) => {
                 dispatch: PropTypes.func,
             };
 
+            static defaultProps = {
+                initialFiles: [],
+            };
+
             constructor() {
                 super(...arguments);
 

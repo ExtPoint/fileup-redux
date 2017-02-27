@@ -1,6 +1,6 @@
 {
   "name": "fileup-redux",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Redux adapter to fileup-core",
   "main": "lib/index.js",
   "repository": {
