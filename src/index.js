@@ -9,20 +9,12 @@ import {add, update, remove} from './actions';
 import {getFiles} from './reducers/fileup';
 import FilePropType from './types/FilePropType';
 
-let idCounter = 0;
-
 export default (config = {}) => {
     return WrappedComponent => {
-        config = {
-            ...config,
-            id: config.id || `uploader${idCounter++}`,
-            uploader: config.uploader || {},
-            backendUrl: config.backendUrl || '',
-        };
-
         class FileUpHOC extends React.Component {
 
             static propTypes = {
+                reduxStateId: PropTypes.string.isRequired,
                 backendUrl: PropTypes.string,
                 multiple: PropTypes.bool,
                 files: PropTypes.arrayOf(FilePropType),
@@ -63,7 +55,7 @@ export default (config = {}) => {
                     })));
 
                     this._uploader.queue.add(fileModels);
-                    fileModels.forEach(file => this.props.dispatch(add(config.id, file)));
+                    fileModels.forEach(file => this.props.dispatch(add(this.props.reduxStateId, file)));
                 }
             }
 
@@ -92,15 +84,15 @@ export default (config = {}) => {
             }
 
             _onAdd(files) {
-                files.forEach(file => this.props.dispatch(add(config.id, file)));
+                files.forEach(file => this.props.dispatch(add(this.props.reduxStateId, file)));
             }
 
             _onUpdate(file) {
-                this.props.dispatch(update(config.id, file));
+                this.props.dispatch(update(this.props.reduxStateId, file));
             }
 
             _onRemove(files) {
-                files.forEach(file => this.props.dispatch(remove(config.id, file)));
+                files.forEach(file => this.props.dispatch(remove(this.props.reduxStateId, file)));
             }
 
             _onUserRemove(uids) {
@@ -124,8 +116,8 @@ export default (config = {}) => {
         FileUpHOC.WrappedComponent = WrappedComponent;
 
         return connect(
-            state => ({
-                files: getFiles(state, config.id),
+            (state, props) => ({
+                files: getFiles(state, props.reduxStateId),
             })
         )(FileUpHOC);
     };
