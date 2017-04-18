@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import FileUp from 'fileup-core';
 import File from 'fileup-core/lib/models/File';
