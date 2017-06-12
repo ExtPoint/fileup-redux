@@ -33,6 +33,7 @@ export default (config = {}) => {
                 this._onAdd = this._onAdd.bind(this);
                 this._onUpdate = this._onUpdate.bind(this);
                 this._onRemove = this._onRemove.bind(this);
+                this._onUserAdd = this._onUserAdd.bind(this);
                 this._onUserRemove = this._onUserRemove.bind(this);
 
                 this._uploader = new FileUp({
