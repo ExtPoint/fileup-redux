@@ -47,15 +47,7 @@ export default (config = {}) => {
 
                 // Add uploaded files
                 if (this.props.initialFiles.length > 0) {
-                    const fileModels = this.props.initialFiles.map(item => (new File({
-                        status: File.STATUS_END,
-                        result: File.RESULT_SUCCESS,
-                        resultHttpStatus: 200,
-                        ...item,
-                    })));
-
-                    this._uploader.queue.add(fileModels);
-                    fileModels.forEach(file => this.props.dispatch(add(this.props.reduxStateId, file)));
+                    this._onUserAdd(this.props.initialFiles);
                 }
             }
 
@@ -78,6 +70,7 @@ export default (config = {}) => {
                     <WrappedComponent
                         {...this.props}
                         uploader={this._uploader}
+                        add={this._onUserAdd}
                         remove={this._onUserRemove}
                     />
                 );
@@ -93,6 +86,18 @@ export default (config = {}) => {
 
             _onRemove(files) {
                 files.forEach(file => this.props.dispatch(remove(this.props.reduxStateId, file)));
+            }
+
+            _onUserAdd(files) {
+                const fileModels = files.map(item => (new File({
+                    status: File.STATUS_END,
+                    result: File.RESULT_SUCCESS,
+                    resultHttpStatus: 200,
+                    ...item,
+                })));
+
+                this._uploader.queue.add(fileModels);
+                fileModels.forEach(file => this.props.dispatch(add(this.props.reduxStateId, file)));
             }
 
             _onUserRemove(uids) {
