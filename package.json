@@ -1,6 +1,6 @@
 {
   "name": "fileup-redux",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Redux adapter to fileup-core",
   "main": "lib/index.js",
   "repository": {
@@ -27,7 +27,7 @@
   "dependencies": {
     "fileup-core": "^1.0.8",
     "prop-types": "^15.5.8",
-    "react": "*",
+    "react": "^15.0.0 || ^16.0.0",
     "react-redux": "*"
   },
   "devDependencies": {
